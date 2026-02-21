@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* Start Screen */
+#startScreen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+  font-family: 'Great Vibes', cursive;
+  font-size: 32px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#startScreen span {
+  font-size: 18px;
+  opacity: 0.7;
+  margin-top: 10px;
+}
+
+/* Paper */
+.paper {
+  width: 92%;
+  max-width: 520px;
+  height: 85dvh;
+  background: #fdf6e3;
+  box-shadow: 0 0 40px rgba(0,0,0,0.7);
+  padding: 35px;
+  overflow-y: auto;
+  border-radius: 6px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  line-height: 1.9;
+  color: #3b2f2f;
+  display: none;
+}
+
+/* Heading */
+.handwritten {
+  font-family: 'Great Vibes', cursive;
+  font-size: 34px;
+  margin-bottom: 25px;
+}
+
+/* Images */
+.memory {
+  width: 100%;
+  margin: 25px 0;
+  border-radius: 10px;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: all 1.8s ease;
+}
+
+.memory.show {
+  opacity: 1;
+  transform: scale(1);
+}
+</style>
+</head>
+
+<body>
+
+<div id="startScreen">
+  28 July 2025
+  <span>Tap to read</span>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1e5b5b7b61.mp3" type="audio/mp3">
+</audio>
+
+<div class="paper" id="letter">
+  <div class="handwritten">For You</div>
+  <div id="content"></div>
+
+  <img src="photo1.jpg" class="memory" id="img1">
+  <img src="photo2.jpg" class="memory" id="img2">
+  <img src="photo3.jpg" class="memory" id="img3">
+</div>
+
+<script>
+
+document.getElementById("startScreen").addEventListener("click", function() {
+  document.getElementById("bgMusic").play();
+  this.style.display = "none";
+  document.getElementById("letter").style.display = "block";
+  typeWriter();
+});
+
+let messages = [
+
+"28 July 2025.",
+"The day I met you.",
+"And I didn't know it then…",
+"But that day would matter to me more than I expected.",
+"",
+"I still remember how normal it seemed.",
+"Just another day.",
+"Just another meeting.",
+"",
+"But some days quietly change everything.",
+"",
+"I know things feel heavy right now.",
+"And maybe I've added to that weight.",
+"",
+"If I did, I am truly sorry.",
+"",
+"But misunderstandings don't erase what is real.",
+"They just mean we need to understand better.",
+"",
+"I don't want to fight you.",
+"I want to understand you.",
+"",
+"I want to listen more carefully.",
+"Speak more gently.",
+"React less impulsively.",
+"",
+"If you're hurt, I care.",
+"If you're distant, I notice.",
+"",
+"And if you're unsure about me…",
+"I’m still here.",
+"",
+"Not perfect.",
+"But honest.",
+"",
+"I’ve replayed moments in my mind.",
+"Things I could have handled differently.",
+"Words I could have softened.",
+"",
+"Pride sometimes speaks louder than love.",
+"And that’s something I am learning to control.",
+"",
+"You once smiled at me in a way I still remember.",
+"It wasn’t just happiness.",
+"It was comfort.",
+"",
+"And I never want to be the reason that comfort disappears.",
+"",
+"You matter to me.",
+"Not just when everything is easy.",
+"But especially when it isn’t.",
+"",
+"I don’t expect everything to be fixed instantly.",
+"I don’t expect you to forget anything.",
+"",
+"I just hope we can talk.",
+"Honestly.",
+"Calmly.",
+"",
+"Because what we have deserves clarity,",
+"not confusion.",
+"",
+"I just hope I can earn that smile again.",
+"",
+"And if I do,",
+"I promise I will protect it better this time.",
+"",
+"I’m not perfect.",
+"But I’m willing."
+];
+
+let content = document.getElementById("content");
+let i = 0;
+let j = 0;
+
+function typeWriter() {
+  if (i < messages.length) {
+    if (j < messages[i].length) {
+      content.innerHTML += messages[i].charAt(j);
+      j++;
+      setTimeout(typeWriter, 85);
+    } else {
+      content.innerHTML += "<br/>";
+      j = 0;
+      i++;
+
+      if (i === 18) document.getElementById("img1").classList.add("show");
+      if (i === 40) document.getElementById("img2").classList.add("show");
+      if (i === 65) document.getElementById("img3").classList.add("show");
+
+      setTimeout(typeWriter, 600);
+    }
+  }
+}
+
+</script>
+
+</body>
+</html>
